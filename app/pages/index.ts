@@ -4,3 +4,4 @@ export { RegisterPage } from "@/pages/Auth/RegisterPage";
 export { LoginPage } from "@/pages/Auth/LoginPage";
 export { LogoutPage } from "@/pages/Auth/LogoutPage";
 export { ClubDashboardPage } from "@/pages/Dashboard/ClubDashboardPage";
+export { CreateClubPage } from "@/pages/Dashboard/CreateClubPage";

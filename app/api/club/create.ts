@@ -1,12 +1,8 @@
 import { api, IResponse } from "../axios";
+import { IClub } from "@/types/club";
 
 interface IData {
-  name: string;
-  slug: string;
-  description: string;
-  owner: string;
-  clubIconId: string;
-  clubIconUrl: string;
+  club: IClub;
 }
 
 export const createClub = async (data: FormData) => {

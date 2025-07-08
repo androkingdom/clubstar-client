@@ -13,9 +13,9 @@ interface ClubCardProps {
   name: string;
   description: string;
   slug: string;
-  imageUrl: string;
-  isPublic: boolean;
-  onDelete: (id: string) => void;
+  clubIconUrl: string;
+  visibility: boolean;
+  onDelete?: (id: string) => void;
 }
 
 export function ClubCard({
@@ -23,15 +23,15 @@ export function ClubCard({
   name,
   description,
   slug,
-  imageUrl,
-  isPublic,
+  clubIconUrl,
+  visibility,
   onDelete,
 }: ClubCardProps) {
   return (
     <Card className="overflow-hidden shadow-md group hover:shadow-lg transition-all duration-300">
       {/* Club Banner Image */}
       <img
-        src={imageUrl}
+        src={clubIconUrl}
         alt={name}
         className="w-full h-36 object-cover"
         loading="lazy"
@@ -40,8 +40,8 @@ export function ClubCard({
       <CardHeader className="text-lg font-bold">
         <div className="flex justify-between items-center">
           <span>{name}</span>
-          <Badge variant={isPublic ? "default" : "secondary"}>
-            {isPublic ? "Public" : "Private"}
+          <Badge variant={visibility ? "default" : "secondary"}>
+            {visibility ? "public" : "private"}
           </Badge>
         </div>
       </CardHeader>
@@ -55,7 +55,7 @@ export function ClubCard({
         <Button
           variant="destructive"
           size="icon"
-          onClick={() => onDelete(id)}
+          onClick={() => onDelete && onDelete(id)}
           className="opacity-80 hover:opacity-100"
         >
           <Trash2 className="w-4 h-4" />

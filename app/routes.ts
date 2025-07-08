@@ -19,5 +19,6 @@ export default [
   ]),
   layout("layouts/DashboardLayout.tsx", [
     route("dashboard", "routes/dashboard.tsx"),
+    ...prefix("club", [route("create", "routes/create-club.tsx")]),
   ]),
 ] satisfies RouteConfig;

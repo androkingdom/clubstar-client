@@ -2,8 +2,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Club, Plus } from "lucide-react";
 import { Link } from "react-router";
-import { ModeToggle } from "@/components/ui/mode-toggle";
-import { CreateClubModal } from "../club/CreateClubModal";
+import { ModeToggle } from "../ui/mode-toggle";
 
 export function DashboardHeader() {
   return (
@@ -13,10 +12,10 @@ export function DashboardHeader() {
         <div className="flex items-center gap-2">
           <Club className="w-5 h-5 text-primary" />
           <Link
-            to="/"
+            to="/dashboard"
             className="text-xl font-semibold hover:opacity-80 transition"
           >
-            Clubstar
+            Dashboard
           </Link>
         </div>
 
@@ -27,7 +26,12 @@ export function DashboardHeader() {
             placeholder="Search clubs..."
             className="hidden sm:block w-64"
           />
-          <CreateClubModal />
+          <Button asChild size="sm" variant="secondary">
+            <Link to="/club/create" className="flex items-center">
+              <Plus className="w-4 h-4 mr-1" />
+              Create Club
+            </Link>
+          </Button>
           <ModeToggle />
         </div>
       </div>

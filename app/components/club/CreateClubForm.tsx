@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { FieldError, useForm } from "react-hook-form";
+import { FieldError, set, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   createClubSchema,
@@ -12,6 +12,10 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Loader, Plus } from "lucide-react";
 import { createClub } from "@/api/club/create";
+import { useAppDispatch } from "@/hooks/useStore";
+import { addClub } from "@/context/features/club/clubSlice";
+import { toast } from "sonner";
+import { useNavigate } from "react-router";
 
 const fieldMotion = {
   hidden: { opacity: 0, y: 10 },
@@ -19,6 +23,9 @@ const fieldMotion = {
 };
 
 export function CreateClubForm() {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -30,25 +37,25 @@ export function CreateClubForm() {
   });
 
   const onSubmit = async (data: CreateClubSchema) => {
-    console.log("🔥 Creating club:", data);
     const formData = new FormData();
-
     formData.append("name", data.name);
     formData.append("slug", data.slug);
     formData.append("description", data.description);
-    formData.append("visibility", String(data.visibility ?? true));
-
+    formData.append("visibility", data.visibility ? "public" : "private");
     if (data.clubIcon && data.clubIcon[0]) {
       formData.append("clubIcon", data.clubIcon[0]); // file from input[type="file"]
     }
+
     try {
       const response = await createClub(formData);
       if (!response.success) throw new Error(response.message);
-      console.log("Sending:", data instanceof FormData ? "[FormData]" : data);
 
-      console.log(response);
+      dispatch(addClub(response.data.club));
+      toast.success(response.message);
+      navigate("/dashboard");
     } catch (error) {
       console.log(error);
+      toast.error((error as FieldError).message);
     }
   };
 
