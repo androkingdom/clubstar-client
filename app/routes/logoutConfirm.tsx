@@ -27,7 +27,7 @@ export default function LogoutConfirm({ loaderData }: Route.ComponentProps) {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const hasHandled = useRef(false); // prevent duplicate toasts & logic
+  const hasHandled = useRef(false);
 
   useEffect(() => {
     if (hasHandled.current) return;

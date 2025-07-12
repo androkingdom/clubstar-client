@@ -1,5 +1,5 @@
 import { CreateClubPage } from "@/pages";
-import { Route } from "./+types/create-club";
+import { Route } from "./+types/createClub";
 
 export function meta({}: Route.MetaArgs) {
   return [

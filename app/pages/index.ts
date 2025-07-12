@@ -5,3 +5,4 @@ export { LoginPage } from "@/pages/Auth/LoginPage";
 export { LogoutPage } from "@/pages/Auth/LogoutPage";
 export { ClubDashboardPage } from "@/pages/Dashboard/ClubDashboardPage";
 export { CreateClubPage } from "@/pages/Dashboard/CreateClubPage";
+export { ChatPage } from "@/pages/Chat/ChatPage";

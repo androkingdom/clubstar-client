@@ -4,10 +4,17 @@ import { useEffect, useState } from "react";
 import { useUser } from "@/hooks/useUser";
 import { toast } from "sonner";
 import { AppLoader } from "@/components/shared/AppLoader";
+import { getSocket } from "@/socket";
 
 export function RootLayout() {
   const { isLoading, error } = useUser();
   const [showApp, setShowApp] = useState(false);
+
+  useEffect(() => {
+    const socket = getSocket(); // 🔥 Init here safely
+    // socket.emit(...) if needed
+  }, []);
+
   useEffect(() => {
     // if (error) toast.error(error);
   }, [error]);

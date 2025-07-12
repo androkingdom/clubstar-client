@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios, { AxiosError, AxiosRequestConfig } from "axios";
 
 export interface IResponse<T = any> {
   data: T;
@@ -43,10 +43,17 @@ function processQueue(error: any) {
 api.interceptors.response.use(
   (res) => res.data, // ✅ Clean response unwrapping
   async (error) => {
+    const status = error.response?.status;
+    const code = error.response?.data?.code;
     const originalRequest = error.config as RetryRequestConfig;
 
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
+
+      if (status === 401 && code === "INVALID_REFRESH_TOKEN") {
+        // 🔒 No retries — refresh token is invalid
+        return Promise.reject(error.response.data as IError);
+      }
 
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
@@ -69,7 +76,7 @@ api.interceptors.response.use(
           }
         );
 
-        processQueue(null);
+        processQueue(null); // only after successful refresh
         return api(originalRequest);
       } catch (err) {
         processQueue(err);

@@ -1,0 +1,5 @@
+{
+  "entry": ["app/page.tsx", "app/layout.tsx", "src/main.tsx", "index.tsx"],
+  "extensions": [".js", ".jsx", ".ts", ".tsx"],
+  "ignorePatterns": ["**/*.test.*", "**/__tests__/**", "node_modules/**"]
+}
