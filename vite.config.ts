@@ -6,6 +6,10 @@ import devtoolsJson from "vite-plugin-devtools-json";
 import netlifyPlugin from "@netlify/vite-plugin-react-router";
 
 export default defineConfig({
+  build: {
+    minify: "esbuild",
+    target: "es2015",
+  },
   server: {
     port: 5000,
   },
