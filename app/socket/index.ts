@@ -8,6 +8,8 @@ export const getSocket = (): Socket => {
       withCredentials: true,
     });
 
+    console.log("🚀 Socket initialized to url:", import.meta.env.VITE_SOCKET_URL);
+
     socket.on("connect", () => {
       console.log("✅ Connected to socket:", socket?.id); // ✅ correct timing
     });
