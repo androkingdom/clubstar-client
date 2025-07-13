@@ -6,7 +6,7 @@ export default function PublicLayout() {
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       <PublicHeader />
       <main className="flex-1 px-4 py-6">
-        <Outlet />
+        <Outlet /> {/* This will be HomePage / AboutPage / RegisterPage */}
       </main>
       <PublicFooter />
     </div>

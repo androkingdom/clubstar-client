@@ -4,7 +4,7 @@ import { Link } from "react-router";
 
 export function AboutPage() {
   return (
-    <div className="min-h-screen bg-background text-foreground px-6 py-16">
+    <div className="max-w-5xl mx-auto px-4 py-8 space-y-16">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -19,7 +19,7 @@ export function AboutPage() {
       </motion.div>
 
       {/* Mission Section */}
-      <section className="mt-16 max-w-4xl mx-auto space-y-6 text-center">
+      <section className="space-y-6 text-center">
         <motion.h2
           className="text-2xl font-semibold"
           initial={{ opacity: 0 }}
@@ -28,15 +28,13 @@ export function AboutPage() {
         >
           Why We Exist
         </motion.h2>
-        <p className="text-muted-foreground">
-          Clubstar was born from the idea that communities deserve more than
-          just chat apps or random groups. Whether you're into anime, dev
-          meetups, chess, or building the next AI startup—this is your hub.
+        <p className="text-muted-foreground max-w-3xl mx-auto">
+          Clubstar was born from the idea that communities deserve more than just chat apps or random groups. Whether you're into anime, dev meetups, chess, or building the next AI startup—this is your hub.
         </p>
       </section>
 
       {/* Unique Section */}
-      <section className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto text-center">
+      <section className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
         {[
           {
             title: "🧩 Modular Clubs",
@@ -56,7 +54,7 @@ export function AboutPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 + i * 0.2 }}
-            className="bg-card p-6 rounded-xl shadow"
+            className="bg-background border border-border p-6 rounded-none"
           >
             <h3 className="font-semibold text-lg mb-1">{feature.title}</h3>
             <p className="text-sm text-muted-foreground">{feature.desc}</p>
@@ -65,7 +63,7 @@ export function AboutPage() {
       </section>
 
       {/* Vision */}
-      <section className="mt-20 max-w-4xl mx-auto text-center space-y-4">
+      <section className="text-center space-y-4">
         <motion.h2
           className="text-2xl font-semibold"
           initial={{ opacity: 0 }}
@@ -74,16 +72,14 @@ export function AboutPage() {
         >
           Where We're Going
         </motion.h2>
-        <p className="text-muted-foreground">
-          We're building tools for real collaboration—AI-powered mods, project
-          boards, event planning, and more. Clubstar isn’t just about groups.
-          It’s about building your people.
+        <p className="text-muted-foreground max-w-3xl mx-auto">
+          We're building tools for real collaboration—AI-powered mods, project boards, event planning, and more. Clubstar isn’t just about groups. It’s about building your people.
         </p>
       </section>
 
       {/* CTA */}
       <motion.div
-        className="mt-16 text-center"
+        className="text-center"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
@@ -91,7 +87,11 @@ export function AboutPage() {
         <p className="mb-4 text-muted-foreground">
           Want to be part of this journey?
         </p>
-        <Button asChild>
+        <Button
+          asChild
+          variant="outline"
+          className="rounded-none border-border"
+        >
           <Link to="/clubs">Explore Clubs</Link>
         </Button>
       </motion.div>

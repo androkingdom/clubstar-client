@@ -73,106 +73,111 @@ export function LoginPage() {
 
   return (
     <motion.main
-      className="min-h-screen flex items-center justify-center px-4"
+      className="min-h-screen px-4 py-4 sm:py-8 flex flex-col justify-start sm:justify-center"
       initial="hidden"
       animate="show"
       variants={pageMotion}
     >
-      <Card className="w-full max-w-md shadow-xl border-none">
-        <CardHeader>
-          <CardTitle className="text-2xl text-center">
-            Login to Clubstar
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <motion.form
-            onSubmit={handleSubmit(onSubmit)}
-            className="space-y-5"
-            initial="hidden"
-            animate="show"
-            variants={pageMotion}
-          >
-            {/* Email Field */}
-            <motion.div variants={fieldMotion} className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input
-                  id="email"
-                  placeholder="john.doe@mail.com"
-                  className="pl-9"
-                  autoComplete="email"
-                  {...register("email")}
-                />
-              </div>
-              {errors.email && (
-                <p className="text-red-500 text-sm">{errors.email.message}</p>
-              )}
-            </motion.div>
+      <div className="flex-grow flex items-center justify-center">
+        <Card className="w-full max-w-md border border-border rounded-none shadow-none bg-background">
+          <CardHeader className="text-center">
+            <CardTitle className="text-2xl">Login to Clubstar</CardTitle>
+          </CardHeader>
 
-            {/* Password Field */}
-            <motion.div variants={fieldMotion} className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input
-                  id="password"
-                  type={isPasswordVisible ? "text" : "password"}
-                  placeholder="••••••"
-                  className="pl-9"
-                  autoComplete="off"
-                  {...register("password")}
-                />
+          <CardContent className="space-y-6">
+            <motion.form
+              onSubmit={handleSubmit(onSubmit)}
+              className="space-y-5"
+              initial="hidden"
+              animate="show"
+              variants={pageMotion}
+            >
+              {/* Email Field */}
+              <motion.div variants={fieldMotion} className="space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    id="email"
+                    placeholder="john.doe@mail.com"
+                    className="pl-9"
+                    autoComplete="email"
+                    {...register("email")}
+                  />
+                </div>
+                {errors.email && (
+                  <p className="text-red-500 text-sm">{errors.email.message}</p>
+                )}
+              </motion.div>
+
+              {/* Password Field */}
+              <motion.div variants={fieldMotion} className="space-y-2">
+                <Label htmlFor="password">Password</Label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    id="password"
+                    type={isPasswordVisible ? "text" : "password"}
+                    placeholder="••••••"
+                    className="pl-9"
+                    autoComplete="off"
+                    {...register("password")}
+                  />
+                  <Button
+                    type="button"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 h-6 w-6 text-muted-foreground cursor-pointer"
+                    variant="secondary"
+                    onClick={() => setIsPasswordVisible((prev) => !prev)}
+                  >
+                    {isPasswordVisible ? (
+                      <EyeOff className="h-4 w-4" />
+                    ) : (
+                      <Eye className="h-4 w-4" />
+                    )}
+                  </Button>
+                </div>
+                {errors.password && (
+                  <p className="text-red-500 text-sm">
+                    {errors.password?.message}
+                  </p>
+                )}
+              </motion.div>
+
+              {/* Submit */}
+              <motion.div variants={fieldMotion}>
                 <Button
-                  type="button"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 h-6 w-6 text-muted-foreground cursor-pointer"
-                  variant="secondary"
-                  onClick={() => setIsPasswordVisible((prev) => !prev)}
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full"
                 >
-                  {isPasswordVisible ? (
-                    <EyeOff className="h-4 w-4" />
+                  {isSubmitting ? (
+                    <Loader className="mr-2 h-4 w-4 animate-spin" />
                   ) : (
-                    <Eye className="h-4 w-4" />
+                    <LogIn className="mr-2 h-4 w-4" />
                   )}
                 </Button>
-              </div>
-              {errors.password && (
-                <p className="text-red-500 text-sm">
-                  {errors.password?.message}
-                </p>
-              )}
-            </motion.div>
+              </motion.div>
+            </motion.form>
+            <motion.div
+              variants={fieldMotion}
+              className="mt-4 flex items-center justify-between text-sm text-muted-foreground"
+            >
+              <p>Don’t have an account?</p>
 
-            {/* Submit */}
-            <motion.div variants={fieldMotion}>
-              <Button type="submit" disabled={isSubmitting} className="w-full">
-                {isSubmitting ? (
-                  <Loader className="mr-2 h-4 w-4 animate-spin" />
-                ) : (
-                  <LogIn className="mr-2 h-4 w-4" />
-                )}
-              </Button>
+              <Link to="/user/register">
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="flex items-center gap-1 text-primary cursor-pointer"
+                >
+                  <Sparkles className="w-4 h-4" />
+                  Get Started
+                </Button>
+              </Link>
             </motion.div>
-          </motion.form>
-          <motion.div
-            variants={fieldMotion}
-            className="mt-4 flex items-center justify-between text-sm text-muted-foreground"
-          >
-            <p>Don’t have an account?</p>
-
-            <Link to="/user/register">
-              <Button
-                size="sm"
-                variant="ghost"
-                className="flex items-center gap-1 text-primary cursor-pointer"
-              >
-                <Sparkles className="w-4 h-4" />
-                Get Started
-              </Button>
-            </Link>
-          </motion.div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      </div>
     </motion.main>
   );
 }

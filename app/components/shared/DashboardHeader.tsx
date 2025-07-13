@@ -7,8 +7,9 @@ import { ModeToggle } from "../ui/mode-toggle";
 export function DashboardHeader() {
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/80 backdrop-blur">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 h-16 flex items-center justify-between">
-        {/* Left: Logo + Link */}
+      <div className="h-16 max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 md:px-8">
+        
+        {/* Left: Logo + Home link */}
         <div className="flex items-center gap-2">
           <Club className="w-5 h-5 text-primary" />
           <Link
@@ -19,19 +20,29 @@ export function DashboardHeader() {
           </Link>
         </div>
 
-        {/* Right: Search + Create + Theme */}
+        {/* Right: Search + CTA + Theme */}
         <div className="flex items-center gap-2">
+          {/* Search: hidden on mobile, visible from sm+ */}
           <Input
             type="search"
             placeholder="Search clubs..."
-            className="hidden sm:block w-64"
+            className="hidden sm:block w-48 md:w-64 rounded-none border-border"
           />
-          <Button asChild size="sm" variant="secondary">
+
+          {/* Create Club Button */}
+          <Button
+            asChild
+            size="sm"
+            variant="outline"
+            className="rounded-none border-border"
+          >
             <Link to="/club/create" className="flex items-center">
               <Plus className="w-4 h-4 mr-1" />
               Create Club
             </Link>
           </Button>
+
+          {/* Theme Toggle */}
           <ModeToggle />
         </div>
       </div>

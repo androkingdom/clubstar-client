@@ -17,14 +17,13 @@ export async function clientLoader({}: Route.ClientLoaderArgs) {
   try {
     const res = await logoutUser();
     return { success: res.success, message: res.message };
-  } catch (error: { message: string } | any) {
-    return { error: error.message, success: false };
+  } catch (error: any) {
+    return { error: error.message || "Unexpected error", success: false };
   }
 }
 
 export default function LogoutConfirm({ loaderData }: Route.ComponentProps) {
   const { success, message, error } = loaderData;
-
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const hasHandled = useRef(false);
@@ -40,12 +39,19 @@ export default function LogoutConfirm({ loaderData }: Route.ComponentProps) {
       toast.error(error || "Logout failed.");
     }
 
-    navigate("/user/login");
+    // ⏳ Give the toast time to show before redirecting
+    const timeout = setTimeout(() => {
+      navigate("/user/login");
+    }, 1000);
+
+    return () => clearTimeout(timeout);
   }, [success, message, error, dispatch, navigate]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
-      <p className="text-sm text-muted-foreground">Logging you out...</p>
+    <div className="min-h-screen flex items-center justify-center px-4 py-8 bg-background text-foreground">
+      <p className="text-muted-foreground text-sm text-center animate-pulse">
+        Logging you out...
+      </p>
     </div>
   );
 }

@@ -2,39 +2,32 @@ import { Outlet, ScrollRestoration } from "react-router";
 import { Toaster } from "@/components/ui/sonner";
 import { useEffect, useState } from "react";
 import { useUser } from "@/hooks/useUser";
-import { toast } from "sonner";
 import { AppLoader } from "@/components/shared/AppLoader";
 import { getSocket } from "@/socket";
 
 export function RootLayout() {
-  const { isLoading, error } = useUser();
+  const { isLoading } = useUser(); // no error handling for now
   const [showApp, setShowApp] = useState(false);
 
+  // Init socket connection once
   useEffect(() => {
-    const socket = getSocket(); // 🔥 Init here safely
-    // socket.emit(...) if needed
+    getSocket();
   }, []);
 
+  // Minimum delay to show splash/loader (nice UX)
   useEffect(() => {
-    // if (error) toast.error(error);
-  }, [error]);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setShowApp(true);
-    }, 1500); // 🔐 force minimum load time
-
+    const timeout = setTimeout(() => setShowApp(true), 1000);
     return () => clearTimeout(timeout);
   }, []);
 
+  // Show loading spinner/splash if user still loading
   if (!showApp || isLoading) return <AppLoader />;
 
   return (
-    <div className="flex flex-col min-h-screen bg-background text-foreground">
+    <div className="flex min-h-screen flex-col bg-background text-foreground">
       <Toaster position="bottom-right" />
-
-      <main className="flex-1 min-h-0 w-full px-4 py-4">
-        <Outlet />
+      <main className="flex-1 w-full px-4 sm:px-6 md:px-8 py-6">
+        <Outlet /> {/* This will be PublicLayout or DashboardLayout */}
         <ScrollRestoration />
       </main>
     </div>
