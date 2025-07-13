@@ -7,8 +7,8 @@ export function LogoutPage() {
   const navigate = useNavigate();
 
   return (
-    <motion.main
-      className="min-h-screen px-4 py-4 sm:py-8 flex flex-col justify-start sm:justify-center"
+    <motion.div
+      className="min-h-screen flex items-center justify-center px-4 py-8"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -36,6 +36,6 @@ export function LogoutPage() {
           </CardContent>
         </Card>
       </div>
-    </motion.main>
+    </motion.div>
   );
 }

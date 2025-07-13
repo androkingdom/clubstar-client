@@ -83,8 +83,8 @@ export function RegisterPage() {
   };
 
   return (
-    <motion.main
-      className="min-h-screen px-4 py-4 sm:py-8 flex flex-col justify-start sm:justify-center"
+    <motion.div
+      className="min-h-screen flex items-center justify-center px-4 py-8"
       initial="hidden"
       animate="show"
       variants={pageMotion}
@@ -216,6 +216,6 @@ export function RegisterPage() {
           </CardContent>
         </Card>
       </div>
-    </motion.main>
+    </motion.div>
   );
 }

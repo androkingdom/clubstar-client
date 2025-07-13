@@ -8,7 +8,6 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
-import { RootLayout } from "./layouts/RootLayout";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -70,17 +69,23 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
-import { ThemeProvider } from "@/components/shared/theme-provider";
 import { Provider } from "react-redux";
 import { store } from "@/context/store";
+import { RootLayout } from "./layouts/RootLayout";
 
-export async function clientLoader({}: Route.ClientLoaderArgs) {}
-clientLoader.hydrate = true as const;
+import { getTheme, ThemeProvider } from "@/components/shared/theme-provider";
 
-export default function App({}: Route.ComponentProps) {
+export async function loader({ request }: Route.LoaderArgs) {
+  const theme = await getTheme(request);
+  return { theme };
+}
+
+export default function App({ loaderData }: Route.ComponentProps) {
+  const theme = loaderData?.theme || "system";
+
   return (
     <Provider store={store}>
-      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <ThemeProvider defaultTheme={theme}>
         <RootLayout />
       </ThemeProvider>
     </Provider>

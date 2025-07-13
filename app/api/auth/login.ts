@@ -21,10 +21,8 @@ interface IData {
 export const loginUser = async (data: LoginPayload) => {
   try {
     const response: IResponse<IData> = await api.post("/auth/login", data);
-    console.log(response);
     return response;
   } catch (error) {
-    console.log(error);
     throw error;
   }
 };
